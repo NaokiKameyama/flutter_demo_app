@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_demo_app/next_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -28,10 +29,6 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   List<String> titleList = ['Amazon', '楽天', 'Yahoo!'];
-  void _incrementCounter() {
-    setState(() {});
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,15 +41,26 @@ class _MyHomePageState extends State<MyHomePage> {
             return Column(
               children: [
                 ListTile(
-                  leading: const Icon(Icons.key),
-                  title: Text(titleList[index]),
-                ),
+                    leading: const Icon(Icons.key),
+                    title: Text(titleList[index]),
+                    onTap: () {
+                      print('リストがタップされました');
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  NextPage(titleList[index])));
+                    }),
                 const Divider(height: 0),
               ],
             );
           }),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: () {
+          titleList.add('Google');
+          print(titleList);
+          setState(() {});
+        },
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ),
